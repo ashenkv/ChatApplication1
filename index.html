@@ -4,31 +4,27 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Modern WebSocket Chat</title>
-    <!-- Link to external modern style -->
+    
     <link rel="stylesheet" href="style.css" />
 </head>
 <body>
     <div class="container">
-        <!-- Chat Header -->
+        
         <header>💬 Simple WebSocket Chat</header>
 
-        <!-- Chat Messages Container -->
         <div id="chat-container"></div>
 
-        <!-- Input Area -->
         <div class="input-area">
             <input type="text" id="message-input" placeholder="Type a message..." />
             <button id="send-button">Send</button>
         </div>
     </div>
 
-    <!-- JavaScript -->
     <script>
         const chatContainer = document.getElementById('chat-container');
         const messageInput = document.getElementById('message-input');
         const sendButton = document.getElementById('send-button');
 
-        // Connect to WebSocket server
         const socket = new WebSocket('ws://localhost:8080');
 
         socket.onopen = () => {
@@ -51,7 +47,6 @@
             addMessage('Connection error!', 'system');
         };
 
-        // Send message function
         function sendMessage() {
             const message = messageInput.value.trim();
             if (message) {
@@ -61,21 +56,17 @@
             }
         }
 
-        // Add message to chat
         function addMessage(message, type) {
             const messageElement = document.createElement('div');
             messageElement.className = `message ${type}`;
             messageElement.textContent = message;
             chatContainer.appendChild(messageElement);
 
-            // Auto-scroll to bottom
             chatContainer.scrollTop = chatContainer.scrollHeight;
         }
 
-        // Send on button click
         sendButton.addEventListener('click', sendMessage);
 
-        // Send on Enter key
         messageInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') sendMessage();
         });
